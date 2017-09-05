@@ -13,26 +13,30 @@ describe Bank do
   end
 
   describe '#credit' do
-    before(:each) { subject.credit(1000) }
+    before(:each) { subject.credit(1000.00) }
     it 'makes a credit' do
-      expect(subject.balance).to eq 1000
+      expect(subject.balance).to eq 1000.00
     end
 
     it 'adds a transaction' do
-      expect(subject.transactions).to have_value(1000)
-      expect(subject.transactions).to have_key(Time.now.strftime("%d/%m/%Y"))
+      expect(subject.transactions.length).to eq 1
     end
   end
 
   describe '#debit' do
-    before(:each) { subject.debit(500) }
+    before(:each) { subject.debit(500.00) }
     it 'makes a debit' do
-      expect(subject.balance).to eq -500
+      expect(subject.balance).to eq -500.00
     end
 
     it 'adds a transaction' do
-      expect(subject.transactions).to have_value(-500)
-      expect(subject.transactions).to have_key(Time.now.strftime("%d/%m/%Y"))
+      expect(subject.transactions.length).to eq 1
     end
+  end
+
+  describe '#print_statement' do
+    before(:each) { subject.credit(1000.00) }
+    sleep(0.1)
+    before(:each) { subject.debit(500.00) }
   end
 end
